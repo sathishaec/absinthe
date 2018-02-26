@@ -10,7 +10,7 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { AlertService, AuthenticationService } from './_services/index';
 import { LoginComponent } from './login/index';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DiscListComponent } from './dicussion/list/list.component';
 import { IconsComponent } from './icons/icons.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { AuthGuard } from './_guards/index';
@@ -20,11 +20,11 @@ import { LoginLayoutComponent } from './layouts/login-layout.component';
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
+    DiscListComponent,
     IconsComponent,
     NotificationsComponent,
-    LoginComponent,
-    LoginLayoutComponent,
+    LoginComponent,  
+    LoginLayoutComponent,           
     HomeLayoutComponent
   ],
   imports: [

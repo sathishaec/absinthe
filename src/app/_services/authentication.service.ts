@@ -1,4 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
+import { Post, Board, Topic } from '../interfaces';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -8,6 +9,14 @@ import 'rxjs/add/operator/map'
 export class AuthenticationService {
     private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     constructor(private http: HttpClient) { }
+    // MOCK DATA
+    debugDefaultBoards: Array<Board> = [
+        { id: 1, name: 'Discusstion Thread - 1', updatedat: '27/06/2017 13:48' },
+        { id: 2, name: 'Discusstion Thread - 2', updatedat: '11/06/2017 13:48' },
+        { id: 3, name: 'Discusstion Thread - 3', updatedat: '07/06/2017 13:48' },
+        { id: 4, name: 'Discusstion Thread - 4', updatedat: '01/06/2017 13:48' },
+        { id: 5, name: 'Discusstion Thread - 5', updatedat: '27/05/2017 13:48' }
+    ];
 
     login(empid: string, password: string) {
         const httpOptions = {
@@ -18,7 +27,7 @@ export class AuthenticationService {
         let url = JSON.stringify(
             { "empid": empid, "password": password }
         )
-        return this.http.post<any>('http://10.98.20.104/simple-codeigniter-rest-api-master/index.php/auth/login', url , httpOptions )
+        return this.http.post<any>('http://192.168.64.2/trackR/index.php/auth/login', url , httpOptions )
             .map(user => {
 
                 // login successful if there's a jwt token in the response
@@ -33,6 +42,11 @@ export class AuthenticationService {
             });
             
     }
+
+    getThreads(): Array<Board> {
+        return this.debugDefaultBoards;
+    }
+
 
     logout() {
         // remove user from local storage to log user out

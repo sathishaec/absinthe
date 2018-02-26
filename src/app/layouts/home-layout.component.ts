@@ -14,7 +14,7 @@ declare const $: any;
 @Component({
   selector: 'app-home-layout',
   templateUrl: 'home-layout.component.html',
-  styles: []
+  styles: ['./home-layout.component.css']
 }) 
 export class HomeLayoutComponent{
   private _router: Subscription;
