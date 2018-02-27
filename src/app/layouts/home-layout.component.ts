@@ -7,7 +7,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
-import { AlertService, AuthenticationService } from '../_services/index';
+import { AlertService, ApiService } from '../_services/index';
 import { NotificationsComponent } from '../notifications/notifications.component';
 
 declare const $: any;
@@ -25,7 +25,7 @@ export class HomeLayoutComponent{
     public location: Location,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
+    private ApiService: ApiService,
     private notificationscomponent: NotificationsComponent,
     private alertService: AlertService) { }
 

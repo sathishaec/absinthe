@@ -17,3 +17,7 @@ export interface Board {
     name: string;
     updatedat: string;
 }
+
+export interface countries_list {
+    countries: string;
+}

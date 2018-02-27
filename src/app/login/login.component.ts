@@ -7,7 +7,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
-import { AlertService, AuthenticationService } from '../_services/index';
+import { AlertService, ApiService } from '../_services/index';
 import { NotificationsComponent } from '../notifications/notifications.component';
 
 declare const $: any;
@@ -31,18 +31,18 @@ export class LoginComponent implements OnInit {
         public location: Location,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService,
+        private ApiService: ApiService,
         private notificationscomponent: NotificationsComponent,
         private alertService: AlertService) { }
 
     ngOnInit() {
         // reset login status
-        this.authenticationService.logout();
-        
+        this.ApiService.logout();
+
         // get return url from route parameters or default to '/'
         this.returnUrl = "/dashboard";
 
-       
+
     }
     ngAfterViewInit() {
         ///this.runOnRouteChange();
@@ -52,14 +52,17 @@ export class LoginComponent implements OnInit {
     login() {
         this.loading = true;
         console.log(this.model.empid);
-        if (this.model.empid == "" || this.model.empid == "undefined" ) {
+        if (this.model.empid == "" || this.model.empid == "undefined") {
             this.notificationscomponent.showNotification('top', 'right', "EMP Id Missing", "danger");
             this.loading = false;
-        } else if (this.model.password == ""||this.model.password == "undefined") {
+            console.log("EMP Id Missing");
+        } else if (this.model.password == "" || this.model.password == "undefined") {
             this.notificationscomponent.showNotification('top', 'right', "Password Missing", "danger");
             this.loading = false;
+            console.log("Password Missing");
         } else {
-            this.authenticationService.login(this.model.empid, this.model.password)
+            console.log("login call");
+            this.ApiService.login(this.model.empid, this.model.password)
                 .subscribe(
                 data => {
                     if (data.status == "201") {
@@ -69,8 +72,9 @@ export class LoginComponent implements OnInit {
                         this.alertService.error(data.message);
                         this.loading = false;
                         this.errors = data.message;
+                    } else {
+                        this.router.navigate([this.returnUrl]);
                     }
-                    this.router.navigate([this.returnUrl]);
                 },
                 error => {
 

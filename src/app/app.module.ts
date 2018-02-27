@@ -6,39 +6,43 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-
 import { AppComponent } from './app.component';
-import { AlertService, AuthenticationService } from './_services/index';
+import { AlertService, ApiService,CountryService } from './_services/index';
 import { LoginComponent } from './login/index';
 import { DiscListComponent } from './dicussion/list/list.component';
+import { DashboardComponent } from './dicussion/dashboard.component';
+
 import { IconsComponent } from './icons/icons.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { AuthGuard } from './_guards/index';
 import { HomeLayoutComponent } from './layouts/home-layout.component';
-import { LoginLayoutComponent } from './layouts/login-layout.component';
+import { DiscCreateComponent } from 'app/dicussion/create/create.component';
+/* import { AutoCompleteModule } from 'primeng/autocomplete'; */
+
 
 @NgModule({
-  declarations: [
+  declarations: [ 
     AppComponent,
     DiscListComponent,
+    DiscCreateComponent,
     IconsComponent,
     NotificationsComponent,
     LoginComponent,  
-    LoginLayoutComponent,           
-    HomeLayoutComponent
-  ],
+    HomeLayoutComponent],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     ComponentsModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    /* AutoCompleteModule */
   ],
   providers: [
     AuthGuard,
     AlertService,
-    AuthenticationService,
+    ApiService,
+    CountryService,
     NotificationsComponent
   ],
   bootstrap: [AppComponent]

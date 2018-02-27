@@ -1,6 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 
 .main-content {
     margin-top: 70px;
     padding: 30px 30px;
 }
+ul{
+    display: none;
+} 

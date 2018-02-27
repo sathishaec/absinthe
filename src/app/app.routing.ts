@@ -7,47 +7,20 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { DiscListComponent } from './dicussion/list/list.component';
 
-import { IconsComponent } from './icons/icons.component';
+import { DiscCreateComponent } from './dicussion/create/create.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 
 import { AuthGuard } from './_guards/index';
-import { LoginLayoutComponent } from './layouts/login-layout.component';
 import { HomeLayoutComponent } from './layouts/home-layout.component';
 
 
 const routes: Routes = [
-  { path: 'icons', component: IconsComponent },
   { path: 'notifications', component: NotificationsComponent },
-  //{ path: '',               redirectTo: 'dashboard', pathMatch: 'full' },
-  //{ path: '', component: DashboardComponent, canActivate: [AuthGuard] },
-  {
-    path: '',
-    component: HomeLayoutComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        component: DiscListComponent
-      }
-    ]
-  },
-  {
-    path: '',
-    component: HomeLayoutComponent,
-    children: [
-      { path: 'dashboard', component: DiscListComponent },
-    ]
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    children: [
-      {
-        path: 'login',
-        component: LoginComponent
-      }
-    ]
-  },
+  {path: '',component: HomeLayoutComponent,canActivate: [AuthGuard],children: [{path: '',component: DiscListComponent}]},
+  {path: '',component: HomeLayoutComponent,children: [{ path: 'dashboard', component: DiscListComponent },]},
+  {path: '',component: HomeLayoutComponent,children: [{path: 'discussion/create',component: DiscCreateComponent}]},
+  {path: 'login',component: LoginComponent,children: [{path: 'login',component: LoginComponent}]},
+  
 
 ];
 
