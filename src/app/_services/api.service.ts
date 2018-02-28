@@ -6,6 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { Globals } from 'app/globals';
+
 
 
 @Injectable()
@@ -13,7 +15,7 @@ export class ApiService {
     private tokenID = '$1$N5wpkeKt$5cUsiaPfX4r19jOdGHgLT1';
     private apiUrl = "http://10.98.20.104/trackR";
     private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private globals: Globals) { }
     // MOCK DATA
     debugDefaultBoards: Array<Board> = [
         { id: 1, name: 'Discusstion Thread - 1', updatedat: '27/06/2017 13:48' },
@@ -53,11 +55,12 @@ export class ApiService {
             .map(user => {
 
                 // login successful if there's a jwt token in the response
-                console.log(user);
+                console.log(user.token);
                 if (user && user.token) {
                     this.loggedIn.next(true);
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    //localStorage.setItem('token', JSON.stringify(user));
                 }
 
                 return user;
@@ -83,8 +86,21 @@ export class ApiService {
         })
     }
 
+    getusers() {
+
+        /*   return this.http.get<any>(this.apiUrl + '/index.php/userprofile/list?token=' + this.globals.token + '&uid=' + this.globals.uid)
+              .map(user => {
+                  return user;
+              }); */
+        return this.http.get<any>(this.apiUrl + '/index.php/userprofile/list?token=$1$ZyPflKjY$/gZWyEVyhtojZDmGItyB2/&uid=5')
+            .map(user => {
+                return user;
+            });
+    }
+
 
     getThreads(): Array<Board> {
+        console.log(this.globals.token);
         return this.debugDefaultBoards;
     }
 

@@ -15,9 +15,9 @@ import { HomeLayoutComponent } from './layouts/home-layout.component';
 
 
 const routes: Routes = [
-  { path: 'notifications', component: NotificationsComponent },
+  {path: 'notifications', component: NotificationsComponent },
   {path: '',component: HomeLayoutComponent,canActivate: [AuthGuard],children: [{path: '',component: DiscListComponent}]},
-  {path: '',component: HomeLayoutComponent,children: [{ path: 'dashboard', component: DiscListComponent },]},
+  {path: '',component: HomeLayoutComponent,children: [{ path: 'discussion', component: DiscListComponent },]},
   {path: '',component: HomeLayoutComponent,children: [{path: 'discussion/create',component: DiscCreateComponent}]},
   {path: 'login',component: LoginComponent,children: [{path: 'login',component: LoginComponent}]},
   

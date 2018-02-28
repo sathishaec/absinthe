@@ -21,3 +21,7 @@ export interface Board {
 export interface countries_list {
     countries: string;
 }
+
+export const GlobalVariable = Object.freeze({
+    token: '',
+});

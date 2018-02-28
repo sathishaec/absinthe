@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { AlertService, ApiService } from '../_services/index';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { Globals } from 'app/globals';
 
 declare const $: any;
 @Component({
@@ -26,14 +27,20 @@ export class LoginComponent implements OnInit {
     returnUrl: string;
     authenticationFlag: boolean = true;
     errors = null;
+    private tokenid: string;
+    private uid: string;
     //@ViewChild(NavbarComponent) navbar: NavbarComponent;
     constructor(
         public location: Location,
         private route: ActivatedRoute,
         private router: Router,
+        private globals: Globals,
         private ApiService: ApiService,
         private notificationscomponent: NotificationsComponent,
-        private alertService: AlertService) { }
+        private alertService: AlertService) { 
+            this.tokenid = globals.token;
+            this.uid = globals.uid;
+        }
 
     ngOnInit() {
         // reset login status
@@ -73,7 +80,13 @@ export class LoginComponent implements OnInit {
                         this.loading = false;
                         this.errors = data.message;
                     } else {
+                        console.log(data);
+                        console.log(data.status);
+                        console.log(data.token_id);
+                        this.globals.token= data.token_id;
+                        this.globals.uid= data.id;
                         this.router.navigate([this.returnUrl]);
+                      
                     }
                 },
                 error => {
