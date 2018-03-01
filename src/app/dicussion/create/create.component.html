@@ -7,12 +7,13 @@
                                     <h4 class="title">Create Dicussion </h4>
                               </div>
                               <div class="card-content">
-                                    <form>
+                                    <form name="discCreatForm" (ngSubmit)="discSubmit(f)" #f="ngForm" novalidate>
                                           <div class="row">
                                                 <div class="col-md-12">
                                                       <div class="form-group form-black label-floating is-empty">
                                                             <label class="control-label">Dicussion Name</label>
-                                                            <input type="text" class="form-control">
+                                                            <input type="text" class="form-control" name="discName" [(ngModel)]="model.discName" #discName="ngModel" required>
+
                                                       </div>
                                                 </div>
 
@@ -23,8 +24,10 @@
                                                       <div class="form-group">
                                                             <div class="form-group form-black label-floating is-empty">
                                                                   <label class="control-label">Desciption</label>
-                                                                  <textarea class="form-control" rows="10"></textarea>
+                                                                  <textarea class="form-control" rows="10" name="discDesc" [(ngModel)]="model.discDesc" #discDesc="ngModel" required></textarea>
                                                             </div>
+
+
                                                       </div>
                                                 </div>
                                           </div>
@@ -34,18 +37,18 @@
                                                       <div class="form-group">
                                                             <div class="form-group form-black label-floating is-empty">
 
-                                                                        <label for="country" class="control-label">Add Members</label>
+                                                                  <label for="members" class="control-label">Add Members</label>
                                                                   <div class="multi-select-field input-field col s12">
-
-                                                                       
                                                                         <div *ngFor="let item of selected">
                                                                               <div class="selected">
                                                                                     <span>{{item.fname}}</span>
                                                                                     <a (click)="remove(item)">x</a>
                                                                               </div>
                                                                         </div>
-                                                                        <input id="country" type="text" class="form-control validate filter-input" [(ngModel)]=query (keyup)=filter() [ngModelOptions]="{standalone: true}">
-
+                                                                        <input [ngClass]="{'red-border-class': members.errors}" id="members" type="text" name="members" class="form-control validate filter-input"
+                                                                              #members="ngModel" [(ngModel)]=query (keyup)=filter()
+                                                                              [ngModelOptions]="{standalone: true}">
+                                                                       
                                                                   </div>
                                                                   <div class="suggestions" *ngIf="filteredList.length > 0">
                                                                         <ul>
@@ -54,7 +57,6 @@
                                                                               </li>
                                                                         </ul>
                                                                   </div>
-
                                                             </div>
                                                       </div>
                                                 </div>

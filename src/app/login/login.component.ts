@@ -37,17 +37,17 @@ export class LoginComponent implements OnInit {
         private globals: Globals,
         private ApiService: ApiService,
         private notificationscomponent: NotificationsComponent,
-        private alertService: AlertService) { 
-            this.tokenid = globals.token;
-            this.uid = globals.uid;
-        }
+        private alertService: AlertService) {
+        this.tokenid = globals.token;
+        this.uid = globals.uid;
+    }
 
     ngOnInit() {
         // reset login status
         this.ApiService.logout();
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = "/dashboard";
+        this.returnUrl = "/discussion";
 
 
     }
@@ -83,10 +83,10 @@ export class LoginComponent implements OnInit {
                         console.log(data);
                         console.log(data.status);
                         console.log(data.token_id);
-                        this.globals.token= data.token_id;
-                        this.globals.uid= data.id;
+                        this.globals.token = data.token_id;
+                        this.globals.uid = data.id;
                         this.router.navigate([this.returnUrl]);
-                      
+
                     }
                 },
                 error => {

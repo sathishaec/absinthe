@@ -55,11 +55,13 @@ export class ApiService {
             .map(user => {
 
                 // login successful if there's a jwt token in the response
-                console.log(user.token);
-                if (user && user.token) {
+                console.log(user.token_id);
+                if (user && user.token_id) {
                     this.loggedIn.next(true);
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('userToken', user.token_id);
+                    localStorage.setItem('userId', user.id);
                     //localStorage.setItem('token', JSON.stringify(user));
                 }
 
@@ -87,17 +89,24 @@ export class ApiService {
     }
 
     getusers() {
-
-        /*   return this.http.get<any>(this.apiUrl + '/index.php/userprofile/list?token=' + this.globals.token + '&uid=' + this.globals.uid)
-              .map(user => {
-                  return user;
-              }); */
-        return this.http.get<any>(this.apiUrl + '/index.php/userprofile/list?token=$1$ZyPflKjY$/gZWyEVyhtojZDmGItyB2/&uid=5')
+        let token = localStorage.getItem('userToken');
+        let userId = localStorage.getItem('userId');
+        return this.http.get<any>(this.apiUrl + '/index.php/userprofile/list?token=' + token + '&uid=' + userId)
             .map(user => {
                 return user;
             });
     }
 
+    discCreate(name: string, desc: string, members: string) {
+        return this.http.post<any>(this.apiUrl + '/index.php/auth/login', {
+            name: name,
+            description: desc,
+            members: members,
+        }).map(user => {
+            return user;
+        });
+
+    }
 
     getThreads(): Array<Board> {
         console.log(this.globals.token);

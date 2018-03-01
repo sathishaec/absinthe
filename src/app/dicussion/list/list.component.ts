@@ -17,6 +17,7 @@ export class DiscListComponent implements OnInit {
   ngOnInit() {
     this.boardList = this.ApiService.getThreads();
     console.log(this.boardList);
+   
   }
 
 }
